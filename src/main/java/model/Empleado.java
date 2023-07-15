@@ -10,18 +10,19 @@ public class Empleado {
     private String name;
     private double number;
     private String dateRegister;
-    private int status;
-    private int idEmployeesType;
+    private int estatus;
+    private String employeeType;
     
-    // Constructor por defecto de la clase empleado
-    public Empleado(int idEmployee, String name, double number, String dateRegister, int status, int idEmployeesType) {
-        this.idEmployee = idEmployee;
-        this.name = name;
-        this.number = number;
-        this.dateRegister = dateRegister;
-        this.status = status;
-        this.idEmployeesType = idEmployeesType;
-    } 
+    //Constructor por defecto, para cuando se crear la el objeto la primera vez, sin inicializar datos
+    public Empleado(){
+        this.idEmployee = 0;
+        this.name = "";
+        this.number = 0;
+        this.dateRegister = "";
+        this.estatus = 0;
+        this.employeeType = "";
+    }
+    // Constructor por defecto de la clase empleado, la cual recibe los parametros de la interfaz
     
     public int getIdEmployee() {
         return idEmployee;
@@ -55,20 +56,20 @@ public class Empleado {
         this.dateRegister = dateRegister;
     }
 
-    public int getStatus() {
-        return status;
+    public int getEstatus() {
+        return estatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
     }
 
-    public int getIdEmployeesType() {
-        return idEmployeesType;
+    public String getEmployeeType() {
+        return employeeType;
     }
 
-    public void setIdEmployeesType(int idEmployeesType) {
-        this.idEmployeesType = idEmployeesType;
+    public String setEmployeeType(String employeeType) {
+        return this.employeeType = employeeType;
     }
 
 }

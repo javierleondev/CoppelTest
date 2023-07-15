@@ -44,10 +44,10 @@ public class MainUI extends javax.swing.JFrame {
 
         jMenuBar1.add(menuEmpleados);
 
-        menuRoles.setText("Roles");
+        menuRoles.setText("Movimientos");
         menuRoles.setToolTipText("Dar de alta roles");
 
-        altaRol.setText("Dar de alta un rol");
+        altaRol.setText("Captura de movimiento mensual");
         menuRoles.add(altaRol);
 
         jMenuBar1.add(menuRoles);

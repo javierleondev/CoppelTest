@@ -1,27 +1,27 @@
 package db;
 
-import model.Empleado;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import model.Empleado;
+import model.Movimientos;
 
-
-public class EmpleadoDAO {
+public class MovimientosDAO {
     //Crear objeto de la clase de conexion a la base de datos
     private DatabaseConnector dbConnector = new DatabaseConnector();
     
     
     //Procedimiento almacenado para guardar los datos del modelo empleado
-    public void guardar(Empleado empleado) {
-         String sql = "{CALL InsertarEmpleado(?, ?, ?, ?)}";
+    public void guardar(Movimientos movimientos) {
+         String sql = "{CALL InsertarMovimiento(?, ?, ?, ?)}";
 
         try (Connection conn = dbConnector.connectToDatabase();
              CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            cstmt.setString(1, empleado.getName());
-            cstmt.setDouble(2, empleado.getNumber());
-            cstmt.setInt(3, empleado.getEstatus());
-            cstmt.setString(4, empleado.getEmployeeType());
+            cstmt.setInt(1, movimientos.getIdEmployee());
+            cstmt.setString(2, movimientos.getMonth());
+            cstmt.setInt(3, movimientos.getDeliveries());
+            cstmt.setInt(4, movimientos.getTotalHours());
             cstmt.executeUpdate();
 
         } catch (SQLException e) {

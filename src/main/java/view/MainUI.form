@@ -22,13 +22,13 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuRoles">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Roles"/>
+            <Property name="text" type="java.lang.String" value="Movimientos"/>
             <Property name="toolTipText" type="java.lang.String" value="Dar de alta roles"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="altaRol">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dar de alta un rol"/>
+                <Property name="text" type="java.lang.String" value="Captura de movimiento mensual"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

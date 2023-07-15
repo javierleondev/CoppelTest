@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConnector {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/perro";
+    static final String DB_URL = "jdbc:mysql://localhost/coppel";
     
     static final String USER = "root";
     static final String PASS = "";
