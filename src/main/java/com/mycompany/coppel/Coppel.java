@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.coppel;
+
+import controller.MainUIController;
+import javax.swing.JFrame;
+import view.MainUI;
 
 /**
  *
@@ -11,6 +11,8 @@ package com.mycompany.coppel;
 public class Coppel {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        //Crear objeto de la interfaz principal
+        MainUI mainUI = new MainUI();
+        MainUIController mainUIController = new MainUIController(mainUI);
     }
 }
