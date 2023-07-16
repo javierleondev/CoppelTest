@@ -1,4 +1,3 @@
-
 package controller;
 
 import db.EmpleadoDAO;
@@ -14,40 +13,43 @@ import view.MainUI;
 import view.MovimientosView;
 import view.ReporteView;
 
-public class MainUIController implements ActionListener{
+public class MainUIController implements ActionListener {
+
     //Recibe el objeto de interfaz desde la clase main, para acceder a sus botones de interfaz
     private MainUI mainUI;
-    
+
     //Constructor por defecto
-    public MainUIController(MainUI mainUI){
+    public MainUIController(MainUI mainUI) {
         //Enlazo la vista recibida desde el metodo main, con la referencia propia a esta vista y le añado sus eventos listener a los elementos de menu.
         this.mainUI = mainUI;
-         this.mainUI.setLayout(new FlowLayout());
+        this.mainUI.setLayout(new FlowLayout());
+        //Agregar listener a los botones
         this.mainUI.altaEmpleado.addActionListener(this);
         this.mainUI.altaRol.addActionListener(this);
         this.mainUI.reporteNomina.addActionListener(this);
-        this.inicializarVista();
+        //Inicializar los parametros del frame
+        this.initializeView();
     }
-    
+
     //Ya que se inicializa la vista, se cargar parametros por defecto y se hace visible
-    void inicializarVista(){
+    void initializeView() {
         mainUI.setTitle("Coppel Test");
         mainUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainUI.setLocationRelativeTo(null);
-        
+
         //Mostrar la interfaz principal
         mainUI.setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ( e.getSource() == this.mainUI.altaEmpleado){
+        if (e.getSource() == this.mainUI.altaEmpleado) {
             //Crear objetos para bindearlos al controlador
             EmpleadoView empleadoView = new EmpleadoView();
             Empleado empleado = new Empleado();
             EmpleadoDAO empleadoDAO = new EmpleadoDAO();
             EmpleadoController empleadoController = new EmpleadoController(empleadoView, empleado, empleadoDAO);
-            
+
             //remover un panel previamente abierto
             this.mainUI.getContentPane().removeAll();
             //Añadir el panel que da de alta usuarios, al mainUI
@@ -55,28 +57,26 @@ public class MainUIController implements ActionListener{
             this.mainUI.revalidate();
             this.mainUI.repaint();
 
-            
-        } else if ( e.getSource() == this.mainUI.altaRol){
+        } else if (e.getSource() == this.mainUI.altaRol) {
             //Crear objetos para bindearlos al controlador
             MovimientosView movimientosView = new MovimientosView();
             Movimientos movimientos = new Movimientos();
             MovimientosDAO movimientosDAO = new MovimientosDAO();
             MovimientosController movimientosController = new MovimientosController(movimientosView, movimientos, movimientosDAO);
-            
-            
+
             //remover un panel previamente abierto
             this.mainUI.getContentPane().removeAll();
             //Añadir el panel que da de alta usuarios, al mainUI
             this.mainUI.add(movimientosView);
             this.mainUI.revalidate();
             this.mainUI.repaint();
-        }else if ( e.getSource() == this.mainUI.reporteNomina){
+        } else if (e.getSource() == this.mainUI.reporteNomina) {
             //Crear objetos para bindearlos al controlador
             ReporteView reporteView = new ReporteView();
             Movimientos movimientos = new Movimientos();
             MovimientosDAO movimientosDAO = new MovimientosDAO();
             ReporteController reporteController = new ReporteController(reporteView, movimientos, movimientosDAO);
-            
+
             //remover un panel previamente abierto
             this.mainUI.getContentPane().removeAll();
             //Añadir el panel que da de alta usuarios, al mainUI
@@ -85,5 +85,4 @@ public class MainUIController implements ActionListener{
             this.mainUI.repaint();
         }
     }
-    
 }

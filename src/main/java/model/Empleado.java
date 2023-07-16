@@ -1,10 +1,7 @@
 package model;
 
-/**
- *
- * @author Pc
- */
 public class Empleado {
+
     // Atributos del objeto empleado
     private int idEmployee;
     private String name;
@@ -12,9 +9,9 @@ public class Empleado {
     private String dateRegister;
     private int estatus;
     private String employeeType;
-    
+
     //Constructor por defecto, para cuando se crear la el objeto la primera vez, sin inicializar datos
-    public Empleado(){
+    public Empleado() {
         this.idEmployee = 0;
         this.name = "";
         this.number = 0;
@@ -22,8 +19,7 @@ public class Empleado {
         this.estatus = 0;
         this.employeeType = "";
     }
-    // Constructor por defecto de la clase empleado, la cual recibe los parametros de la interfaz
-    
+
     public int getIdEmployee() {
         return idEmployee;
     }
@@ -71,5 +67,4 @@ public class Empleado {
     public String setEmployeeType(String employeeType) {
         return this.employeeType = employeeType;
     }
-
 }
