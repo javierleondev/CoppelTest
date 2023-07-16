@@ -3,6 +3,7 @@ package db;
 import model.Empleado;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -26,6 +27,23 @@ public class EmpleadoDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    //Validar sí ya hay un empleado registrado con ese numero de empleado
+    public boolean getEmployeeIDByNumber(int idEmployee) {
+        String sql = "{CALL GetEmployeeIDByNumber(?)}";
+        try (Connection conn = dbConnector.connectToDatabase(); CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, idEmployee);
+            ResultSet rs = cstmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

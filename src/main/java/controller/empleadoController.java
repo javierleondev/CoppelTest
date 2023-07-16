@@ -35,12 +35,18 @@ public class EmpleadoController implements ActionListener {
             }else if("".equals(this.empleadoView.txtNombreEmpleado.getText())){
                 JOptionPane.showMessageDialog(this.empleadoView, "Ingrese un nombre de empleado válido","Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                //Bindear información de la vista con el modelo
-                this.setEmployeeData();
-                //Mandar la info del modelo para guardar en la base de datos
-                this.empleadoDAO.guardar(empleado);
-                JOptionPane.showMessageDialog(null, "¡Empleado registrado con éxito!", "Aviso", JOptionPane.DEFAULT_OPTION);
-                this.clearFields();
+                boolean existeRegistro;
+                existeRegistro = this.empleadoDAO.getEmployeeIDByNumber(Integer.parseInt(this.empleadoView.txtNumeroEmpleado.getText()));
+                if(existeRegistro){
+                    JOptionPane.showMessageDialog(this.empleadoView, "Este número ya está en uso, prubea con otro, por favor", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    //Bindear información de la vista con el modelo
+                    this.setEmployeeData();
+                    //Mandar la info del modelo para guardar en la base de datos
+                    this.empleadoDAO.guardar(empleado);
+                    JOptionPane.showMessageDialog(null, "¡Empleado registrado con éxito!", "Aviso", JOptionPane.DEFAULT_OPTION);
+                    this.clearFields();
+                }
             }
         }else if (e.getSource() == this.empleadoView.btnCancelar){
             Container contenedor = this.empleadoView.getParent();
