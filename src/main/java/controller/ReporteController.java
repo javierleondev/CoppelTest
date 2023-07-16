@@ -1,6 +1,7 @@
 package controller;
 
 import db.MovimientosDAO;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -55,11 +56,19 @@ public class ReporteController implements ActionListener, KeyListener {
         this.movimientos = movimientos;
         this.movimientosDAO = movimientosDAO;
         this.reporteView.txtNumeroEmpleado.addKeyListener(this);
+        this.reporteView.btnClose.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == this.reporteView.btnClose) {
+            Container contenedor = this.reporteView.getParent();
+            // Eliminar el JPanel del contenedor.
+            contenedor.remove(this.reporteView);
+            // Revalidar y repintar el contenedor para reflejar el cambio.
+            contenedor.revalidate();
+            contenedor.repaint();
+        }
     }
 
     @Override

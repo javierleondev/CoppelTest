@@ -35,26 +35,42 @@ public class MainUI extends javax.swing.JFrame {
         reporteNomina = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 204));
+        setResizable(false);
 
+        jMenuBar1.setBackground(new java.awt.Color(10, 102, 179));
+
+        menuEmpleados.setBackground(new java.awt.Color(10, 102, 179));
+        menuEmpleados.setForeground(new java.awt.Color(255, 255, 255));
         menuEmpleados.setText("Empleados");
         menuEmpleados.setToolTipText("Dar de alta un empleado");
 
+        altaEmpleado.setBackground(new java.awt.Color(10, 102, 179));
+        altaEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         altaEmpleado.setText("Dar de alta un empleado");
         menuEmpleados.add(altaEmpleado);
 
         jMenuBar1.add(menuEmpleados);
 
+        menuRoles.setBackground(new java.awt.Color(10, 102, 179));
+        menuRoles.setForeground(new java.awt.Color(255, 255, 255));
         menuRoles.setText("Movimientos");
         menuRoles.setToolTipText("Dar de alta roles");
 
+        altaRol.setBackground(new java.awt.Color(10, 102, 179));
+        altaRol.setForeground(new java.awt.Color(255, 255, 255));
         altaRol.setText("Captura de movimiento mensual");
         menuRoles.add(altaRol);
 
         jMenuBar1.add(menuRoles);
 
+        menuReportes.setBackground(new java.awt.Color(10, 102, 179));
+        menuReportes.setForeground(new java.awt.Color(255, 255, 255));
         menuReportes.setText("Reporte");
         menuReportes.setToolTipText("Ver reporte de nómina");
 
+        reporteNomina.setBackground(new java.awt.Color(10, 102, 179));
+        reporteNomina.setForeground(new java.awt.Color(255, 255, 255));
         reporteNomina.setText("Ver reportes de nómina");
         menuReportes.add(reporteNomina);
 
@@ -66,11 +82,11 @@ public class MainUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1199, Short.MAX_VALUE)
+            .addGap(0, 1353, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
         );
 
         pack();

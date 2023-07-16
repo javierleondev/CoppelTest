@@ -2,9 +2,11 @@ package controller;
 
 import db.EmpleadoDAO;
 import db.MovimientosDAO;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import model.Empleado;
 import model.Movimientos;
@@ -17,6 +19,8 @@ public class MainUIController implements ActionListener {
 
     //Recibe el objeto de interfaz desde la clase main, para acceder a sus botones de interfaz
     private MainUI mainUI;
+    ImageIcon imgIcon = new ImageIcon("src/main/java/images/Coppel.png");
+
 
     //Constructor por defecto
     public MainUIController(MainUI mainUI) {
@@ -33,8 +37,13 @@ public class MainUIController implements ActionListener {
 
     //Ya que se inicializa la vista, se cargar parametros por defecto y se hace visible
     void initializeView() {
-        mainUI.setTitle("Coppel Test");
+
+        mainUI.setTitle("Examen Coppel");
+        mainUI.setIconImage(imgIcon.getImage());
         mainUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set background color
+        mainUI.getContentPane().setBackground(new Color(255, 227, 11));
         mainUI.setLocationRelativeTo(null);
 
         //Mostrar la interfaz principal
