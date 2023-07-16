@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Empleado;
@@ -26,6 +27,7 @@ public class EmpleadoController implements ActionListener {
         this.empleadoView.btnCancelar.addActionListener(this);
         this.empleadoView.btnGuardar.addActionListener(this);
         //Cargar todos los empleados a la tabla al abrirse el panel
+       
         this.getEmployees();
     }
 

@@ -19,7 +19,7 @@ public class MainUIController implements ActionListener {
 
     //Recibe el objeto de interfaz desde la clase main, para acceder a sus botones de interfaz
     private MainUI mainUI;
-    ImageIcon imgIcon = new ImageIcon("src/main/java/images/Coppel.png");
+    ImageIcon imgIcon = new ImageIcon("src/main/java/resources/Coppel.png");
 
 
     //Constructor por defecto
