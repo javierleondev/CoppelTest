@@ -5,7 +5,9 @@ import db.EmpleadoDAO;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Empleado;
 import view.EmpleadoView;
 
@@ -22,6 +24,8 @@ public class EmpleadoController implements ActionListener {
         this.empleadoDAO = empleadoDAO;
         this.empleadoView.btnCancelar.addActionListener(this);
         this.empleadoView.btnGuardar.addActionListener(this);
+        //Cargar todos los empleados a la tabla al abrirse el panel
+        this.consultarEmpleados();
     }
     
 
@@ -45,7 +49,9 @@ public class EmpleadoController implements ActionListener {
                     //Mandar la info del modelo para guardar en la base de datos
                     this.empleadoDAO.guardar(empleado);
                     JOptionPane.showMessageDialog(null, "¡Empleado registrado con éxito!", "Aviso", JOptionPane.DEFAULT_OPTION);
+                    //Limpiar campos y recargas tabla
                     this.clearFields();
+                    this.consultarEmpleados();
                 }
             }
         }else if (e.getSource() == this.empleadoView.btnCancelar){
@@ -57,6 +63,38 @@ public class EmpleadoController implements ActionListener {
             contenedor.repaint();
         }
     }
+    
+    public void consultarEmpleados() {
+        List<Empleado> empleados;
+        empleados = this.empleadoDAO.getAllEmployees();
+
+        //Crear el modelo de la tabla
+        DefaultTableModel modelo;
+        String[] titulos = {"Nombre", "Número", "Fecha Alta", "Cargo"}; // campos de la tabla
+        String[] registros = new String[4];
+        modelo = new DefaultTableModel(null, titulos);
+        
+        //Validar sí hay empleados
+        if (!empleados.isEmpty()) {
+            //Asignar los valores del reporte a la tabla
+            for (int x = 0; x < empleados.size(); x++) {
+                //Asignar los datos de la BD de empleados a las columans de la tabla
+                registros[0] = String.valueOf(empleados.get(x).getName());
+                registros[1] = String.valueOf(empleados.get(x).getNumber());
+                registros[2] = String.valueOf(empleados.get(x).getDateRegister());
+                registros[3] = String.valueOf(empleados.get(x).getEmployeeType());
+                modelo.addRow(registros);
+            }
+            //añade el registro al cuerpo de la tabla
+            this.empleadoView.TableEmpleados.setModel(modelo);
+        } else {
+            this.empleadoView.TableEmpleados.setModel(modelo);
+        }
+    }
+    
+    
+    
+    
     
     //Bind valores de la view al modelo
     void setEmployeeData(){
