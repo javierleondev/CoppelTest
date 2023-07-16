@@ -13,7 +13,64 @@ public class MovimientosDAO {
 
     //Crear objeto de la clase de conexion a la base de datos
     private DatabaseConnector dbConnector = new DatabaseConnector();
+    Movimientos movement = new Movimientos();
 
+    //Validar sí ya hay registros de datos para un empleado en un mes especifico
+    public boolean getMovementsByMonthAndEmployee(String month, int idEmployee) {
+        String sql = "{CALL GetMovementsByMonthAndEmployee(?, ?)}";
+        try (Connection conn = dbConnector.connectToDatabase(); CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setString(1, month);
+            cstmt.setInt(2, idEmployee);
+            ResultSet rs = cstmt.executeQuery();
+            
+            if (rs.next()) {
+                movement.setDeliveries(rs.getInt("deliveries"));
+                movement.setTotalHours(rs.getInt("totalHours"));
+                System.out.println("Si hay registros, datos preguardados");
+                System.out.println("Entregas "+ movement.getDeliveries());
+                System.out.println("Horas "+ movement.getTotalHours());
+                return true;
+            } else {
+                System.out.println("No hay registros.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    //Actualizar las horas y las entregas de un registro existente
+    public void updateMovementsByMonthAndEmployee(String month, int idEmployee, int deliveries, int totalHours) {
+        String sql = "{CALL UpdateMovementsByMonthAndEmployee(?, ?, ?, ?)}";
+        
+        int newDeliveries, newTotalHours;
+        newDeliveries = deliveries + movement.getDeliveries();
+        newTotalHours = totalHours + movement.getTotalHours();
+        System.out.println("Tratando de actualizar");
+        System.out.println("Entregas de antes "+ movement.getDeliveries());
+        System.out.println("Horas de antes "+ movement.getTotalHours());
+        
+        try (Connection conn = dbConnector.connectToDatabase();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setInt(1, newDeliveries);
+            cstmt.setInt(2, newTotalHours);
+            cstmt.setString(3, month);
+            cstmt.setInt(4, idEmployee);
+
+            int updatedRows = cstmt.executeUpdate();
+
+            if (updatedRows == 0) {
+                System.out.println("No rows updated. Check the month and idEmployee.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    
     //Procedimiento almacenado para guardar los datos del modelo empleado
     public void guardar(Movimientos movimientos) {
         String sql = "{CALL InsertarMovimiento(?, ?, ?, ?)}";

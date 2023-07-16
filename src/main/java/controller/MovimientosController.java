@@ -46,10 +46,21 @@ public class MovimientosController implements ActionListener, KeyListener {
             }else if (!this.movimientosView.txtCantEntregas.getText().matches("\\d+")) { 
                 JOptionPane.showMessageDialog(this.movimientosView, "Ingrese sólo números para indicar la cantidad de entregas, por favor", "Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                //Bindear información de la vista con el modelo
-                this.setEntregasData();
-                //Mandar la info del modelo para guardar en la base de datos
-                this.movimientosDAO.guardar(movimientos);
+                //Validar si ya hay registros para ese empleado en el mes seleccionado
+                boolean existeRegistro;
+                existeRegistro = this.movimientosDAO.getMovementsByMonthAndEmployee((String) this.movimientosView.ComboMeses.getSelectedItem(), Integer.parseInt(this.movimientosView.txtNumeroEmpleado.getText()));
+                if(existeRegistro){
+                    //Hacer un update al registro existente y sumar las horas trabajadas y el número de entregas
+                    this.movimientosDAO.updateMovementsByMonthAndEmployee((String) this.movimientosView.ComboMeses.getSelectedItem(), 
+                            Integer.parseInt(this.movimientosView.txtNumeroEmpleado.getText()), Integer.parseInt(this.movimientosView.txtCantEntregas.getText()),
+                            Integer.parseInt(this.movimientosView.txtHorasTrabajadas.getText()));
+                }else{
+                    //De lo contrario, hacer un insert con los valores del form
+                    //Bindear información de la vista con el modelo
+                    this.setEntregasData();
+                    //Mandar la info del modelo para guardar en la base de datos
+                    this.movimientosDAO.guardar(movimientos);
+                }
                 JOptionPane.showMessageDialog(null, "¡Movimiento registrado con éxito!", "Aviso", JOptionPane.DEFAULT_OPTION);
                 this.clearFields();
             }
