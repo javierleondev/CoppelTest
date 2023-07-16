@@ -28,11 +28,11 @@ public class EmpleadoController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.empleadoView.btnGuardar){
-            if((String) this.empleadoView.ComboRoles.getSelectedItem() == "Seleccionar"){
+            if("Seleccionar".equals((String) this.empleadoView.ComboRoles.getSelectedItem())){
                 JOptionPane.showMessageDialog(this.empleadoView, "Selecciona un rol válido, por favor","Error", JOptionPane.ERROR_MESSAGE);
             }else if (!this.empleadoView.txtNumeroEmpleado.getText().matches("\\d+")) { 
                 JOptionPane.showMessageDialog(this.empleadoView, "Favor de ingresar sólo digitos en el número de empleado", "Error", JOptionPane.ERROR_MESSAGE);
-            }else if(this.empleadoView.txtNombreEmpleado.getText() == ""){
+            }else if("".equals(this.empleadoView.txtNombreEmpleado.getText())){
                 JOptionPane.showMessageDialog(this.empleadoView, "Ingrese un nombre de empleado válido","Error", JOptionPane.ERROR_MESSAGE);
             }else{
                 //Bindear información de la vista con el modelo

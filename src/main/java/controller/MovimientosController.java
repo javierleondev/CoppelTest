@@ -5,11 +5,15 @@ import db.MovimientosDAO;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.Empleado;
 import model.Movimientos;
 import view.MovimientosView;
 
-public class MovimientosController implements ActionListener {
+public class MovimientosController implements ActionListener, KeyListener {
     //Variables para bindear el modelo y la vista
     private MovimientosView movimientosView;
     private Movimientos movimientos;
@@ -21,6 +25,7 @@ public class MovimientosController implements ActionListener {
         this.movimientosDAO = movimientosDAO;
         this.movimientosView.btnGuardar.addActionListener(this);
         this.movimientosView.btnSalir.addActionListener(this);
+        this.movimientosView.txtNumeroEmpleado.addKeyListener(this);
     }
 
     @Override
@@ -58,6 +63,7 @@ public class MovimientosController implements ActionListener {
         }
     }
     
+
     void setEntregasData(){
         this.movimientos.setIdEmployee(Integer.parseInt(this.movimientosView.txtNumeroEmpleado.getText()));
         this.movimientos.setMonth((String) this.movimientosView.ComboMeses.getSelectedItem());
@@ -72,5 +78,37 @@ public class MovimientosController implements ActionListener {
         this.movimientosView.txtNombre.setText("");
         this.movimientosView.txtNumeroEmpleado.setText("");
         this.movimientosView.txtRol.setText("");
+    }
+    
+    
+    public void keyPressed(KeyEvent e) {
+        //Escuchar cuando se presione enter despues de ingresar el ID para buscar en la BD
+        if (e.getSource() == movimientosView.txtNumeroEmpleado) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                
+                List<Empleado> employees;
+                System.out.println("ID A BUSCAR: "+this.movimientosView.txtNumeroEmpleado.getText());
+                employees = this.movimientosDAO.getEmployeeByNumber(Integer.parseInt(this.movimientosView.txtNumeroEmpleado.getText()));
+                // If you're only expecting one result, you can just get the first one.
+                if (!employees.isEmpty()) {
+                    Empleado employee = employees.get(0);
+                    this.movimientosView.txtNombre.setText(employee.getName());
+                    this.movimientosView.txtRol.setText(String.valueOf(employee.getEmployeeType()));
+                }else{
+                    JOptionPane.showMessageDialog(this.movimientosView, "No existe ese empleado en la base de datos, intenta de nuevo");
+                }
+            }
+        }
+    }
+
+    
+    @Override
+    public void keyTyped(KeyEvent e) {
+     
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    
     }
 }
