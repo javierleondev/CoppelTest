@@ -12,6 +12,7 @@ import model.Movimientos;
 import view.EmpleadoView;
 import view.MainUI;
 import view.MovimientosView;
+import view.ReporteView;
 
 public class MainUIController implements ActionListener{
     //Recibe el objeto de interfaz desde la clase main, para acceder a sus botones de interfaz
@@ -41,12 +42,14 @@ public class MainUIController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource() == this.mainUI.altaEmpleado){
-            //Mostrar interfaz para dar de alta a un cliente
+            //Crear objetos para bindearlos al controlador
             EmpleadoView empleadoView = new EmpleadoView();
             Empleado empleado = new Empleado();
             EmpleadoDAO empleadoDAO = new EmpleadoDAO();
             EmpleadoController empleadoController = new EmpleadoController(empleadoView, empleado, empleadoDAO);
             
+            //remover un panel previamente abierto
+            this.mainUI.getContentPane().removeAll();
             //Añadir el panel que da de alta usuarios, al mainUI
             this.mainUI.add(empleadoView);
             this.mainUI.revalidate();
@@ -54,18 +57,32 @@ public class MainUIController implements ActionListener{
 
             
         } else if ( e.getSource() == this.mainUI.altaRol){
-            //Mostrar interfaz para registrar los movimientos mensuales
+            //Crear objetos para bindearlos al controlador
             MovimientosView movimientosView = new MovimientosView();
             Movimientos movimientos = new Movimientos();
             MovimientosDAO movimientosDAO = new MovimientosDAO();
             MovimientosController movimientosController = new MovimientosController(movimientosView, movimientos, movimientosDAO);
             
+            
+            //remover un panel previamente abierto
+            this.mainUI.getContentPane().removeAll();
             //Añadir el panel que da de alta usuarios, al mainUI
             this.mainUI.add(movimientosView);
             this.mainUI.revalidate();
             this.mainUI.repaint();
-        }else{
-            //Mostrar interfaz para ver vista de reporte
+        }else if ( e.getSource() == this.mainUI.reporteNomina){
+            //Crear objetos para bindearlos al controlador
+            ReporteView reporteView = new ReporteView();
+            Movimientos movimientos = new Movimientos();
+            MovimientosDAO movimientosDAO = new MovimientosDAO();
+            ReporteController reporteController = new ReporteController(reporteView, movimientos, movimientosDAO);
+            
+            //remover un panel previamente abierto
+            this.mainUI.getContentPane().removeAll();
+            //Añadir el panel que da de alta usuarios, al mainUI
+            this.mainUI.add(reporteView);
+            this.mainUI.revalidate();
+            this.mainUI.repaint();
         }
     }
     

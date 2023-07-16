@@ -50,4 +50,28 @@ public class MovimientosDAO {
         }
         return employees;
     }
+    
+    //Recuperar todos los registros de un empleado en base a un ID usando un join entre tablas
+    public List<Movimientos> getMovementsByEmployeeNumber(int numeroEmpleado) {
+        String sql = "{CALL GetMovementsByEmployeeNumber(?)}";
+        List<Movimientos> movimientos = new ArrayList<>();
+
+        try (Connection conn = dbConnector.connectToDatabase(); CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, numeroEmpleado);
+            try(ResultSet rs = cstmt.executeQuery()){
+                while (rs.next()) {
+                    Movimientos movimiento = new Movimientos();
+                    movimiento.setNombreEmpleado(rs.getString("nombre"));
+                    movimiento.setEmployeeType(rs.getString("employeeType"));
+                    movimiento.setMonth(rs.getString("months"));
+                    movimiento.setDeliveries(rs.getInt("deliveries"));
+                    movimiento.setTotalHours(rs.getInt("totalHours"));
+                    movimientos.add(movimiento);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return movimientos;
+    }
 }

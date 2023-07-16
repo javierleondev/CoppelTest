@@ -89,7 +89,6 @@ public class MovimientosController implements ActionListener, KeyListener {
                 List<Empleado> employees;
                 System.out.println("ID A BUSCAR: "+this.movimientosView.txtNumeroEmpleado.getText());
                 employees = this.movimientosDAO.getEmployeeByNumber(Integer.parseInt(this.movimientosView.txtNumeroEmpleado.getText()));
-                // If you're only expecting one result, you can just get the first one.
                 if (!employees.isEmpty()) {
                     Empleado employee = employees.get(0);
                     this.movimientosView.txtNombre.setText(employee.getName());
